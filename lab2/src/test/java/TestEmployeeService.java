@@ -1,13 +1,19 @@
 import org.junit.jupiter.api.BeforeEach;
-import Worker.Worker;
-import WorkerSystem.WorkerSystem;
-import Position.Position;
+import model.Worker;
+import service.EmployeeService;
+import model.Position;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
+import java.util.Map;
+import model.CompanyStatistics; 
 
 
-public class TestWorkerSystem {
-    WorkerSystem system;
+
+public class TestEmployeeService {
+    EmployeeService system;
     Worker worker1;
     Worker worker2;
     Worker worker3;
@@ -15,7 +21,7 @@ public class TestWorkerSystem {
 
     @BeforeEach
     void setUp() {
-        system = new WorkerSystem();
+        system = new EmployeeService();
         worker1 = new Worker("Pola", "W", "polamail.com", "MegaCorp", Position.PREZES);
         worker2 = new Worker("Ala", "K", "alamail.com", "MegaCorp", Position.MANAGER);
         worker3 = new Worker("Jan", "N", "janmail.com", "OtherCorp", Position.MANAGER);
@@ -115,7 +121,45 @@ public class TestWorkerSystem {
         assert highest.isEmpty();
     }
 
+    @Test
+    void validateSalaryConsistency() {
+        Worker wrongSalaryWorker1 = new Worker("Conchita", "Wurst", "conchitamail.com", "MegaCorp", Position.MANAGER, 9000.0);
+        Worker wrongSalaryWorker2 = new Worker("Low", "Salary", "lowmail.com", "MegaCorp", Position.PREZES, 5000.0);
+
+        system.addWorker(wrongSalaryWorker1);
+        system.addWorker(wrongSalaryWorker2);
+        system.addWorker(worker1);
+
+        List<Worker> inconsistent = system.validateSalaryConsistency();
+        
+        assert inconsistent.size() == 2;
+        assert inconsistent.contains(wrongSalaryWorker1);
+        assert inconsistent.contains(wrongSalaryWorker2);
+        assert !inconsistent.contains(worker1);
+
+    }
+
+    @Test
+    void getCompanyStatistics() {
+        system.addWorker(worker1);
+        system.addWorker(worker2); 
+        system.addWorker(worker3); 
+
+        Map<String, CompanyStatistics> stats = system.getCompanyStatistics();
+
+        assertEquals(stats.size(), 2);
+        
+        assertEquals(stats.get("MegaCorp").getWorkerCount(), 2);
+        assertEquals(stats.get("OtherCorp").getWorkerCount(), 1);
+        assertEquals(stats.get("MegaCorp").getAvgSalary(), (25000.0 + 12000.0) / 2.0);
+        assertEquals(stats.get("OtherCorp").getAvgSalary(), 12000.0);
+        assertEquals(stats.get("MegaCorp").getBestEarningWorker(), worker1.getName() + " " + worker1.getSurname());
+        assertEquals(stats.get("OtherCorp").getBestEarningWorker(), worker3.getName() + " " + worker3.getSurname());
 
 
-    
+
+
+
+        
+    }
 }

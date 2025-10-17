@@ -1,7 +1,8 @@
-package WorkerSystem;
+package service;
 
-import Worker.Worker;
-import Position.Position;
+import model.Worker;
+import model.CompanyStatistics;
+import model.Position;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 
 
-public class WorkerSystem {
+public class EmployeeService {
     private Set<Worker> workers = new HashSet<>();
 
 
@@ -73,6 +74,38 @@ public class WorkerSystem {
                 
     }
 
+    public List<Worker> validateSalaryConsistency() {
+        return workers.stream()
+                .filter(w -> w.getSalary() < w.getPosition().getSalary())
+                .collect(Collectors.toList());
+
+    }
+
+    public Map<String, CompanyStatistics> getCompanyStatistics() {
+        return workers.stream()
+                .collect(Collectors.groupingBy(Worker::getCorpName,
+                        Collectors.collectingAndThen(Collectors.toList(),
+                        companyWorkers -> {
+                            long count = companyWorkers.size();
+                            double avgSalary = companyWorkers.stream()
+                                    .mapToDouble(Worker::getSalary)
+                                    .average()
+                                    .orElse(0.0);
+                            Worker topEarner = companyWorkers.stream()
+                                    .max(Comparator.comparingDouble(Worker::getSalary))
+                                    .orElse(null);
+                            
+                            String topName = (topEarner != null)
+                                    ? topEarner.getName() + " " + topEarner.getSurname()
+                                    : "firma nie ma pracownikow";
+
+                            String corpName = companyWorkers.get(0).getCorpName();
+
+                            return new CompanyStatistics(corpName, count, avgSalary, topName);
+
+                        })));
+
+    }
 
 
     
