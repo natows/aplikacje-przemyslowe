@@ -1,0 +1,12 @@
+firstName,lastName,email,company,position,salary
+Jan,Kowalski,jan.kowalski@example.com,TechCorp,PROGRAMISTA,8000.00
+Anna,Nowak,anna.nowak@example.com,DataSystems,STAŻYSTA,6000.00
+
+Piotr,Wiśniewski,piotr.wisniewski@example.com,TechCorp,NIEISTNIEJACE_STANOWISKO,7500.00
+Maria,Wójcik,maria.wojcik@example.com,CloudServices,PROGRAMISTA,-500.00
+Tomasz,Kowalczyk,tomasz.kowalczyk@example.com,DataSystems,MANAGER
+Katarzyna,,katarzyna.kaminska@example.com,TechCorp,TESTER,6200.00
+,Lewandowski,michal.lewandowski@example.com,CloudServices,DEVOPS,7800.00
+Agnieszka,Zielińska,agnieszka.zielinska@example.com,DataSystems,PROGRAMISTA,0
+Krzysztof,Szymański,krzysztof.szymanski@example.com,TechCorp,MANAGER,dziewiec_tysiecy
+Magdalena,Woźniak,magdalena.wozniak@example.com,CloudServices,TESTER,6100.00
