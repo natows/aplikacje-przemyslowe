@@ -1,0 +1,24 @@
+# 1. Sprawdź wszystkich pracowników
+curl http://localhost:8080/api/employees
+
+# 2. Dodaj nowego
+curl -X POST http://localhost:8080/api/employees \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"Jan","lastName":"Kowalski","email":"jan@example.com","company":"TechCorp","position":"PROGRAMISTA","salary":8000,"status":"ACTIVE"}'
+
+# 3. Sprawdź po emailu
+curl http://localhost:8080/api/employees/jan@example.com
+
+# 4. Filtruj po firmie
+curl "http://localhost:8080/api/employees?company=TechCorp"
+
+# 5. Aktualizuj
+curl -X PUT http://localhost:8080/api/employees/jan@example.com \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"Jan","lastName":"Kowalski","email":"jan@example.com","company":"TechCorp","position":"MANAGER","salary":12000,"status":"ACTIVE"}'
+
+# 6. Usuń
+curl -X DELETE http://localhost:8080/api/employees/jan@example.com
+
+# 7. Sprawdź status po usunięciu (powinno być 404)
+curl -v http://localhost:8080/api/employees/jan@example.com

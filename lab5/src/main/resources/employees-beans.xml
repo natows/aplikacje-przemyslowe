@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <bean id="employee1" class="techCorp.model.Worker">
+        <constructor-arg value="Jan"/>
+        <constructor-arg value="Kowalski"/>
+        <constructor-arg value="jan.kowalski@techcorp.com"/>
+        <constructor-arg value="TechCorp"/>
+        <constructor-arg value="MANAGER"/>
+        <constructor-arg value="12500"/>
+    </bean>
+    
+    <bean id="employee2" class="techCorp.model.Worker">
+        <constructor-arg value="Anna"/>
+        <constructor-arg value="Nowak"/>
+        <constructor-arg value="anna.nowak@techcorp.com"/>
+        <constructor-arg value="TechCorp"/>
+        <constructor-arg value="PROGRAMISTA"/>
+        <constructor-arg value="8500"/>
+    </bean>
+    
+    <bean id="employee3" class="techCorp.model.Worker">
+        <constructor-arg value="Piotr"/>
+        <constructor-arg value="Wiśniewski"/>
+        <constructor-arg value="piotr.wisniewski@innovate.com"/>
+        <constructor-arg value="InnovateLab"/>
+        <constructor-arg value="PROGRAMISTA"/>
+        <constructor-arg value="9000"/>
+    </bean>
+    
+    <bean id="employee4" class="techCorp.model.Worker">
+        <constructor-arg value="Maria"/>
+        <constructor-arg value="Dąbrowska"/>
+        <constructor-arg value="maria.dabrowska@techcorp.com"/>
+        <constructor-arg value="TechCorp"/>
+        <constructor-arg value="STAŻYSTA"/>
+        <constructor-arg value="7000"/>
+    </bean>
+    
+    <bean id="employee5" class="techCorp.model.Worker">
+        <constructor-arg value="Tomasz"/>
+        <constructor-arg value="Lewandowski"/>
+        <constructor-arg value="tomasz.lewandowski@innovate.com"/>
+        <constructor-arg value="InnovateLab"/>
+        <constructor-arg value="MANAGER"/>
+        <constructor-arg value="13000"/>
+    </bean>
+    
+    <util:list id="xmlEmployees" value-type="techCorp.model.Worker">
+        <ref bean="employee1"/>
+        <ref bean="employee2"/>
+        <ref bean="employee3"/>
+        <ref bean="employee4"/>
+        <ref bean="employee5"/>
+    </util:list>
+</beans>
